@@ -1,7 +1,7 @@
 #!/bin/bash - 
 # -------------------------------------------------------
 # Filename: byinit.sh
-# Revision: 1.0
+# Revision: 1.1
 # Date: 2018/02/24
 # Author: CHENC
 # Description: init the new server
