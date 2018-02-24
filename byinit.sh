@@ -19,8 +19,6 @@ zabbix_serverhostname='ctos7'
 [ -e "/home/tools/" ] || mkdir -p "/home/tools/"
 [ -e "/tmp/initflag.log" ] || touch '/tmp/initflag.log'
 
-111111111
-
 clear
 cat << EOF
 #####################################################
