@@ -2,7 +2,7 @@
 # -------------------------------------------------------
 # Filename: byinit.sh
 # Revision: 1.0
-# Date: 2018/01/30
+# Date: 2018/02/24
 # Author: CHENC
 # Description: init the new server
 # -------------------------------------------------------
@@ -126,7 +126,7 @@ for i in ${basetool[@]}
     whereis $i |grep -E "bin|usr|etc" >/dev/null 2>&1
     if [ $? != 0 ];then
       yum -y install $i >> $installlog 2>&1
-      if [ $? == 0 ];then
+      if [ $? = 0 ];then
         echo "$i - Install OK ..." |tee -a $log
       else
         echo "$i - Install Faild !!" |tee -a $log
@@ -144,7 +144,7 @@ for i in ${plugin[@]}
   do
     if [ -z "$(rpm -qa | egrep ^$i)" ];then
       yum -y install $i >> $installlog 2>&1
-      if [ $? == 0 ];then
+      if [ $? = 0 ];then
         echo "$i - Install OK ..." |tee -a $log
       else
         echo "$i - Install Faild !!" |tee -a $log
@@ -185,7 +185,7 @@ echo
 ### 同步时间
 echo "ntpdate首次同步时间"
 /usr/sbin/ntpdate 2.cn.pool.ntp.org  >> $log 2>&1
-if [ $? == 0 ];then
+if [ $? = 0 ];then
   /sbin/hwclock -w >> $log 2>&1
 else
   echo "更新时间失败..."
@@ -411,13 +411,13 @@ cd zabbix-3.2.1
 ./configure \
   --prefix=/usr/local/zabbix \
   --enable-agent >> $installlog 2>&1
-  if [ $? == 0 ];then
+  if [ $? = 0 ];then
     echo "zabbix_agent: configure成功 ..." |tee -a $log
     make >> $installlog 2>&1
       if [ $? = 0 ];then
         echo "zabbix_agent: make成功 ..." |tee -a $log
         make install >> $installlog 2>&1
-        if [ $? == 0 ];then
+        if [ $? = 0 ];then
           echo "zabbix_agent: 编译安装成功 ..." |tee -a $log
           \cp ./misc/init.d/fedora/core/zabbix_agentd /etc/init.d/
           sed -i 's/BASEDIR=\/usr\/local/BASEDIR=\/usr\/local\/zabbix/g' /etc/init.d/zabbix_agentd
@@ -551,6 +551,7 @@ if [ -z "$(cat /tmp/initflag.log |grep ok)" ];then
     do
       /sbin/chkconfig --level 3 $i off >> $log 2>&1
   done
+  
   service postfix stop >> $log 2>&1
   echo "ok" > /tmp/initflag.log
   echo "关闭passwd shadow group修改权限..."
@@ -561,6 +562,7 @@ if [ -z "$(cat /tmp/initflag.log |grep ok)" ];then
 
   iptables -P INPUT ACCEPT
   iptables -F
+  iptables -X
   /etc/init.d/iptables save >/dev/null
 
   echo "更改了系统时区，请重启系统..."
