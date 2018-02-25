@@ -1,3 +1,5 @@
-This script use to init a new CentOS 6.5-6.9 x86_64 Linux Server !   
-Just for myself ...   
-If you want to use ,you must mod the download info ,eg. url duser dpass ...
+This Script Use to Init a New Linux Server of CentOS 6.5-6.9 x86_64.   
+Just for Myself.
+If You Want to Use ,You Should Edit the Download URL/User/Password.
+
+Last ,Good Luck and Be Careful!
