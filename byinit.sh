@@ -23,7 +23,7 @@ clear
 cat << EOF
 #####################################################
 #                                                   #
-#        标越科技-服务器初始化脚本                  #
+#        BYKJ - INIT A NEW SERVER                   #
 #                                                   #
 #####################################################
 EOF
@@ -98,7 +98,7 @@ fi
 echo
 
 ##########################################################################
-#                               System部署                               #
+#                               Init System                              #
 ##########################################################################
 function sysinit {
 clear
@@ -320,7 +320,7 @@ echo
 
 
 ##########################################################################
-#                               SSH部署                                  #
+#                               Init SSH                                 #
 ##########################################################################
 function ssh {
 echo Backup sshd_config...
@@ -343,7 +343,7 @@ cat /dev/null > /etc/motd
 
 
 ##########################################################################
-#                               配置主机名                               #
+#                            Config Hostname                             #
 ##########################################################################
 function set_hostname {
 lanip=$(ifconfig |grep -A 1 -E "eth0|em1|em4|band0|ppp0" |grep "inet addr" |awk '{print $2}' |awk -F ':' '{print $2}' |head -1)
@@ -371,7 +371,7 @@ echo "$lan $hname" >>/etc/hosts
 
 
 ##########################################################################
-#                               Install_zabbixagent                      #
+#                            Install Zabbix Agent                        #
 ##########################################################################
 function install_zabbixagent {
 wget --http-user=$duser --http-password=$dpwd $durl/install_zabbixagent.tar.gz -O /home/tools/install_zabbixagent.tar.gz |tee -a  $log 2>&1
@@ -463,7 +463,7 @@ hash -r
 
 
 ##########################################################################
-#                               配置java环境                             #
+#                         Config Java Environmnet                        #
 ##########################################################################
 function Configure_Java_Environment {
 wget --http-user=$duser --http-password=$dpwd $durl/java.zip -O /home/tools/java.zip |tee -a $log 2>&1
@@ -487,7 +487,7 @@ fi
 
 
 ##########################################################################
-#                               安装Nginx                                #
+#                         Install Nginx v1.12.1                          #
 ##########################################################################
 function install_nginx {
 wget --http-user=$duser --http-password=$dpwd $durl/install_ngx.tar.gz -O /home/tools/install_ngx.tar.gz |tee -a $log 2>&1
@@ -536,7 +536,7 @@ fi
 # install_ngx
 
 ##########################################################################
-#                               退出初始化脚本                           #
+#                               QUIT                                     #
 ##########################################################################
 function quit {
 if [ -z "$(cat /tmp/initflag.log |grep ok)" ];then
@@ -583,7 +583,7 @@ while [ 1 ]
  do
 cat << EOF
 #####################################################
-# Mean: A B C 为必须安装选项                        #
+# Mean: A B C Must to Be Done                       #
 #   A: Init system                                  #
 #   B: Configure ssh                                #
 #   C: Configure Hostname                           #
