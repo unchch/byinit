@@ -463,12 +463,12 @@ hash -r
 
 
 ##########################################################################
-#                         Config Java Environmnet                        #
+#                         Config JDK 1.7                                 #
 ##########################################################################
-function Configure_Java_Environment {
-wget --http-user=$duser --http-password=$dpwd $durl/java.zip -O /home/tools/java.zip |tee -a $log 2>&1
+function Configure_JDK_1.7 {
+wget --http-user=$duser --http-password=$dpwd $durl/jdk1.7.zip -O /home/tools/jdk1.7.zip |tee -a $log 2>&1
 if [ $? = 0 ];then
-  cd /home/tools && unzip -q java.zip && cp -r java /usr/
+  cd /home/tools && unzip -q jdk1.7.zip && cp -r java /usr/
   echo >> /etc/profile
 
 cat >> /etc/profile << EOF
@@ -483,7 +483,31 @@ EOF
 
 fi	
 }
-#java environment
+#JDK 1.7
+
+
+##########################################################################
+#                         Config JDK 1.8                                 #
+##########################################################################
+function Configure_JDK_1.8 {
+wget --http-user=$duser --http-password=$dpwd $durl/jdk1.8.zip -O /home/tools/jdk1.8.zip |tee -a $log 2>&1
+if [ $? = 0 ];then
+  cd /home/tools && unzip -q jdk1.8.zip && cp -r java /usr/
+  echo >> /etc/profile
+
+cat >> /etc/profile << EOF
+# MOD PATH
+export PATH=/usr/local/sbin:\$PATH
+
+# SET JAVA ENVIRONMENT
+export JAVA_HOME=/usr/java/jdk1.8.0_162
+export CLASSPATH=.:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib/tools.jar
+export PATH=\$JAVA_HOME/bin:\$PATH
+EOF
+
+fi	
+}
+#JDK 1.8
 
 
 ##########################################################################
@@ -588,7 +612,8 @@ cat << EOF
 #   B: Configure ssh                                #
 #   C: Configure Hostname                           #
 #   D: Install Zabbix_agent                         #
-#   J: Configure jdk1.7                             #
+#   J: Configure JDK 1.7                            #
+#   K: Configure JDK 1.8                            #
 #   N: Install Nginx 1.21.1                         #
 #   Q: Quit                                         #
 #####################################################
@@ -611,7 +636,10 @@ case $option in
     install_zabbixagent
     ;;
   J|j)
-    Configure_Java_Environment
+    Configure_JDK_1.7
+    ;;
+  K|k)
+    Configure_JDK_1.8
     ;;
   N|n)
     install_nginx
