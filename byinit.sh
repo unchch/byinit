@@ -10,10 +10,10 @@
 log='/tmp/init_sys.log'
 installlog='/tmp/init_install.log'
 baktime=$(date +"%Y%m%d_%H%M%S")
-durl="http://119.147.149.194:9001/initdown"
+durl="http://www.baidu.com:9001/initdown"
 duser="yunwei"
-dpwd="master@2012"
-zabbix_server='119.147.149.194,220.231.228.87'
+dpwd="xxx"
+zabbix_server='www.baidu.com,www.taobao.com'
 zabbix_port='10050'
 zabbix_serverhostname='ctos7'
 [ -e "/home/tools/" ] || mkdir -p "/home/tools/"
