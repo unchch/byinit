@@ -514,6 +514,7 @@ fi
 #                         Install Nginx v1.12.1                          #
 ##########################################################################
 function install_nginx {
+wget --http-user=$duser --http-password=$dpwd $durl/nginx.conf -O /home/tools/nginx.conf |tee -a $log 2>&1
 wget --http-user=$duser --http-password=$dpwd $durl/install_ngx.tar.gz -O /home/tools/install_ngx.tar.gz |tee -a $log 2>&1
 if [ -z "$(cat /etc/passwd |grep nginx)" ];then
   NGTOOLS=(epel-release patch pcre pcre-devel openssl openssl-devel gcc-c++ autoconf automake zlib-devel httpd-tools)
@@ -546,6 +547,7 @@ if [ -z "$(cat /etc/passwd |grep nginx)" ];then
       if [ $? = 0 ];then
         echo "install OK ..."
         ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
+	\cp /home/tools/nginx.conf /usr/local/nginx/conf/
       else
         echo "install Failed !! Exit ..."
       fi
